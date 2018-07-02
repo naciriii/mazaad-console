@@ -24,4 +24,9 @@ class User extends Model
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+     public function details()
+    {
+        return $this->hasOne('App\UserDetail','user_id','id');
+    }
 }
