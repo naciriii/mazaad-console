@@ -69,7 +69,7 @@
                                     @if(!$row->is_valid)
                                       <a href="{{ route('products.validate', ['id' => $row->id]) }}" class="btn btn-success btn-xs"><i class="fa fa-check" title="Delete"></i> </a>
                                       @endif
-                                      <button onclick="showMore({{$row->pictures->makeHidden('pivot')->toJson(JSON_HEX_APOS)}},{{$row->details->toJson(JSON_HEX_APOS)}})" class="btn btn-xs btn-info">More</button>
+                                      <button onclick="showMore({{$row->pictures->makeHidden('pivot')->toJson(JSON_HEX_APOS)}},@if($row->details){{$row->details->toJson(JSON_HEX_APOS)}}@else undefined @endif)" class="btn btn-xs btn-info">More</button>
                                       
                                 </td>
                             </tr>
@@ -110,13 +110,14 @@
 </div>
 <script type="text/javascript">
 function showMore(pics,details) {
-console.log(details.description);
 
 var html = '';
 $.each(pics,function(index,item) {
     html+='<div class="col-md-4"><img height="100px" width="100px;" src="'+item.path+'"/></div>';
 });
+if(details != undefined) {
 $('#moreModal #description').html('<p>'+details.description+'</p>');
+}
 $('#moreModal #body').html(html);
 
 $('#moreModal').modal();
