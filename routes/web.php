@@ -29,6 +29,9 @@ Route::group(['prefix'=>'users'],function() {
 Route::resource('categories','CategoryController');
 Route::resource('regions','RegionController');
 
+Route::get('products/validate/{id}','ProductController@validateProduct')->name('products.validate');
+Route::resource('products','ProductController');
+
 
 
 

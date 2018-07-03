@@ -92,6 +92,14 @@
 
                                     </ul>
                                 </li>
+                                <li><a><i class="fa fa-edit"></i> Products<span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        
+                                        <li><a href="{{route('products.index')}}">Products list</a></li>
+
+
+                                    </ul>
+                                </li>
 
                                        
 
