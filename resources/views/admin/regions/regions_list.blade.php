@@ -25,7 +25,6 @@
                             <tr>
                                
                                 <th>Name</th>
-                                 <th>Icon</th>
                              
                                 
                             
@@ -35,7 +34,6 @@
                         <tfoot>
                             <tr>
                                   <th>Name</th>
-                                 <th>Icon</th>
                              
                                 
                             
@@ -47,7 +45,6 @@
                             @foreach ($regions as $row)
                             <tr>
                                 <td>{{$row->name}}</td>
-                                <td><i class="{{$row->icon}}"></i></td>
                               
                             
                             
