@@ -16,7 +16,7 @@
                     <table id="datatable-buttons" class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                               
+                                <th>Picture</th>
                                 <th>Name</th>
                                 <th>Category</th>
                                 <th>Region</th>
@@ -31,6 +31,7 @@
                         </thead>
                         <tfoot>
                             <tr>
+                                <th>Picture</th>
                                 <th>Name</th>
                                 <th>Category</th>
                                 <th>Region</th>
@@ -47,6 +48,8 @@
                             @if(count($products))
                             @foreach ($products as $row)
                             <tr>
+                                <td><img height="50px;" width="50px;" src="{{$row->mainPicture()->first()->path}}"></td>
+
                                 <td>{{$row->name}}</td>
                                 <td>{{$row->category->name}}</td>
                               <td>{{$row->region->name or ''}}</td>
@@ -66,6 +69,7 @@
                                     @if(!$row->is_valid)
                                       <a href="{{ route('products.validate', ['id' => $row->id]) }}" class="btn btn-success btn-xs"><i class="fa fa-check" title="Delete"></i> </a>
                                       @endif
+                                      <button onclick="showMore({{$row->pictures->makeHidden('pivot')->toJson(JSON_HEX_APOS)}},{{$row->details->toJson(JSON_HEX_APOS)}})" class="btn btn-xs btn-info">More</button>
                                       
                                 </td>
                             </tr>
@@ -78,5 +82,44 @@
         </div>
     </div>
 </div>
+<div id="moreModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">More Details</h4>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+        <div class="row" id="description">
+        </div>
+
+        <div class="row" id="body">
+        </div>
+        </div>
+      
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<script type="text/javascript">
+function showMore(pics,details) {
+console.log(details.description);
+
+var html = '';
+$.each(pics,function(index,item) {
+    html+='<div class="col-md-4"><img height="100px" width="100px;" src="'+item.path+'"/></div>';
+});
+$('#moreModal #description').html('<p>'+details.description+'</p>');
+$('#moreModal #body').html(html);
+
+$('#moreModal').modal();
+}</script>
 
 @stop
