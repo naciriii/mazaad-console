@@ -25,10 +25,6 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group{{ $errors->has('icon') ? ' has-error' : '' }}">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Region Icon<span class="required">*</span>
-                            </label>
-                        </div>
 
                      
 
