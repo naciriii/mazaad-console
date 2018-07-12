@@ -64,12 +64,16 @@
                            
                                 <td>
                                     
-
+                                  <a href="{{ route('products.edit', ['id' => $row->id]) }}" class="btn btn-info btn-xs"><i class="fa fa-pencil" title="Edit"></i> </a>
                                     <a href="{{ route('products.show', ['id' => $row->id]) }}" class="btn btn-danger btn-xs"><i class="fa fa-trash-o" title="Delete"></i> </a>
                                     @if(!$row->is_valid)
                                       <a href="{{ route('products.validate', ['id' => $row->id]) }}" class="btn btn-success btn-xs"><i class="fa fa-check" title="Delete"></i> </a>
+
                                       @endif
                                       <button onclick="showMore({{$row->pictures->makeHidden('pivot')->toJson(JSON_HEX_APOS)}},@if($row->details){{$row->details->toJson(JSON_HEX_APOS)}}@else undefined @endif)" class="btn btn-xs btn-info">More</button>
+                                      @if(count($row->bids))
+                                      <a href="{{route('auctions.index',['id'=>$row->id])}}" ><button class="btn btn-sm btn-warning"> Auctions</button></a>
+                                      @endif
                                       
                                 </td>
                             </tr>

@@ -7,6 +7,8 @@ use App\Product;
 use App\ProductDetail;
 use App\ProductPicture;
 use App\Bid;
+use App\Category;
+use App\Region;
 
 class ProductController extends Controller
 {
@@ -92,7 +94,29 @@ return abort(404);
      */
    public function edit($id)
     {
-        return abort(404);
+         try
+        {
+         
+            $product = Product::findOrFail($id);
+
+            $params = [
+                'title' => 'Edit Product',
+             
+                'product' => $product,
+                'categories' => Category::all(),
+                'regions' => Region::all(),
+                
+            ];
+
+            return view('admin.products.products_edit')->with($params);
+        }
+        catch (ModelNotFoundException $ex) 
+        {
+            if ($ex instanceof ModelNotFoundException)
+            {
+                return response()->view('errors.'.'404');
+            }
+        }
     }
 
     /**
@@ -104,6 +128,42 @@ return abort(404);
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'name'=>'required',
+            'start_price'=>'required',
+            'stop_date'=>'required',
+            'category_id'=>'required',
+            'region_id'=>'required']);
+        $p = Product::findOrFail($id);
+        $p->name = $request->name;
+        $p->start_price = $request->start_price;
+                $p->stop_date = $request->stop_date;
+                  $p->region_id = $request->region_id;
+                    $p->category_id = $request->category_id;
+                    if(!$request->has('is_valid')) {
+                        $p->is_valid  = false;
+
+                    }
+                     if($request->has('is_available')) {
+                        $p->is_available = true;
+
+                    }
+
+                    if($request->has('description')) {
+                        if($p->details != null) {
+                            $dt = ProductDetail::find($p->details->id);
+
+                           
+                        } else {
+                            $dt = new ProductDetail;
+                            $dt->product_id = $p->id;
+                        }
+                         $dt->description = $request->description;
+                    }
+                    $p->save();
+     return redirect()->route('products.index')->with('success', "The Product <strong>$p->name</strong> has successfully been updated.");
+
+
         return abort(404);
     }
 
