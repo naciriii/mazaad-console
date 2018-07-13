@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Complaint;
+use Mail;
 
 class ComplaintController extends Controller
 {
@@ -30,27 +31,19 @@ class ComplaintController extends Controller
 
     public function answer(Request $request)
     {
-    	 $pass = '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';
-        $url = 'https://api.sendgrid.com/';
-        $params = array(
+    	
+        $contact = array(
             'to'        => $request->email,
             'subject'   => "Complaint",
             'html'      => $request->content,
             'from'      => 'contact@mazaad.com',
         );
-        $request =  $url.'api/mail.send.json';
-        $headr = array();
-        // set authorization header
-        $headr[] = 'Authorization: Bearer '.$pass;
-        $session = curl_init($request);
-        curl_setopt ($session, CURLOPT_POST, true);
-        curl_setopt ($session, CURLOPT_POSTFIELDS, $params);
-        curl_setopt($session, CURLOPT_HEADER, false);
-        curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-        // add authorization header
-        curl_setopt($session, CURLOPT_HTTPHEADER,$headr);
-        $response = curl_exec($session);
-        curl_close($session);
+          Mail::raw($contact['html'], function ($m) use ($contact) {
+            $m->from($contact['from']);
+
+            $m->to($contact['to'])->subject($contact['subject']);
+        });
+
 
 
   return redirect()->route('complaints.index')
