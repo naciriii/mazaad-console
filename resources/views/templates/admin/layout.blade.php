@@ -211,8 +211,10 @@
     <script src="{{asset('admin/js/pdfmake.min.js')}}"></script>
     <script src="{{asset('admin/js/vfs_fonts.js')}}"></script>
 
+
     <!-- Custom Theme Scripts -->
     <script src="{{asset('admin/js/custom.min.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 
     <!-- Datatables -->
     <script>

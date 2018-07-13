@@ -41,6 +41,7 @@ class HomeController extends Controller
         'users' => User::all()->count(),
         'categories' => Category::all()->count(),
         'regions' => Region::all()->count(),
+        'all_regions' => Region::all(),
         'products' => Product::all()->count(),
         'complaints' => complaint::all()->count(),
         'auctions' =>$auctions ];
