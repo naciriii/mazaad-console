@@ -42,10 +42,11 @@
                         </tfoot>
                         <tbody>
                             @if(count($complaints))
+
                             @foreach ($complaints as $row)
                             <tr>
                                 <td><a href="{{route('users.index')}}">{{$row->user->email}}</a></td>
-                                <td>{{$row->subject->name or ''}}</td>
+                                <td>{{$row->csubject->name or '' }}</td>
                                 <td>{{str_limit($row->content,20,'...')}}</td>
                                 <td>{{$row->created_at}}</td>
                               
