@@ -7,11 +7,13 @@
 
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
-                <div class="x_title">
-                    <h2> {{$title}} on Product <b>{{$product->name}}</b>  </h2>
+                <center>
+                <div class=" text-center">
+                    <h2 class="text-center"> {{$title}} on Product <b>{{$product->name}}</b>  </h2>
+                   <center> <img  class="img-responsive text-center " src="{{$product->mainPicture->first()->path}}"></center>
 
                     <div class="clearfix"></div>
-                </div>
+                </div></center>
                 <div class="x_content">
                     <table id="datatable-buttons" class="table table-striped table-bordered">
                         <thead>

@@ -9,6 +9,8 @@ use App\Region;
 use App\Product;
 use App\Complaint;
 use App\Bid;
+use App\Admin;
+use Auth;
 
 
 
@@ -46,5 +48,35 @@ class HomeController extends Controller
         'complaints' => complaint::all()->count(),
         'auctions' =>$auctions ];
         return view('admin.home')->with($data);
+    }
+
+    public function profile()
+    {
+        return view('admin.profile');
+    }
+
+    public function postProfile(Request $request)
+    {
+        $this->validate($request, [
+              "name" => "required|string|max:255",
+           "email" => "required|email|max:255|unique:admins,email,".Auth::user()->id,
+            ]);
+      
+        if($request->has('password')) {
+            $this->validate($request,[
+                 'password' => 'required|string|min:6|confirmed',
+
+                ]);
+        }
+          $admin = Admin::find(Auth::user()->id);
+        $admin->name = $request->name;
+        $admin->email = $request->email;
+        if($request->has('password')) {
+            $admin->password= bcrypt($request->password);
+        }
+
+        $admin->save();
+        return redirect()->route('profile.index')->with('success', "Profile successfully updated.");
+
     }
 }

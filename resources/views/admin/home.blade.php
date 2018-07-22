@@ -33,8 +33,8 @@
        
            
           </div>
-          <div class="x_panel">
-          <canvas id="myChart"></canvas>
+          <div class="x_panel" >
+          <canvas  id="myChart"></canvas>
 
 </div>
           <script  src="{{asset('admin/js/Chart.min.js')}}" ></script>
@@ -53,6 +53,14 @@ new Chart(ctx, {
       ]
     },
     options: {
+      responsive: true,
+      scales: {
+        yAxes: [{
+            ticks: {
+                beginAtZero: true
+            }
+        }]
+    },
       legend: { display: false },
       title: {
         display: true,

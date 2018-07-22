@@ -15,6 +15,10 @@
 Route::get('/',['middleware'=>'auth','uses'=>'HomeController@index'] );
 
 Auth::routes();
+Route::get('/logout','Auth\LoginController@logout');
+Route::post('/profile',['middleware'=>'auth','as'=>'profile.update','uses'=>'HomeController@postProfile'] );
+
+Route::get('/profile',['middleware'=>'auth','as'=>'profile.index','uses'=>'HomeController@profile'] );
 
 Route::group(['middleware' => ['auth']],function() {
 

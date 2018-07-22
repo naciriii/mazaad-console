@@ -16,7 +16,7 @@ class AuctionController extends Controller
     public function index($product_id)
     {
     	  $params=[
-        'title'=>' auctions list',
+        'title'=>' Auctions list',
         'product' => Product::find($product_id),
             'auctions'=>Bid::where('product_id',$product_id)->orderBy('id','ASC')->get()];
 

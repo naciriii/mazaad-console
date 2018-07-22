@@ -47,7 +47,7 @@
                             <tr>
                                 <td><a href="{{route('users.index')}}">{{$row->user->email}}</a></td>
                                 <td>{{$row->csubject->name or '' }}</td>
-                                <td>{{str_limit($row->content,20,'...')}}</td>
+                                <td>{{str_limit($row->content,15,'...')}}</td>
                                 <td>{{$row->created_at}}</td>
                               
                             
