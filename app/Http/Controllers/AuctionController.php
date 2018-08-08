@@ -93,7 +93,6 @@ class AuctionController extends Controller
      */
     public function update(Request $request, $id)
     {
-    	dd($request->all());
         try
         {
                $this->validate($request, [
@@ -106,7 +105,7 @@ class AuctionController extends Controller
 
             $bid = Bid::findOrFail($id);
 
-            $bid->name = $request->input('name');
+            $bid->price = $request->input('price');
             if($request->has('is_winning')) {
              $bid->is_winning = true;
              $p = Product::find($bid->product->id);
